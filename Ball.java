@@ -59,6 +59,7 @@ public class Ball extends Sprite{
 		else return 0;
 	}
 	
+	//test
 	public void reset() {
 		setDx(-7);
 		setDy(-7);
