@@ -6,13 +6,18 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
+import java.nio.file.FileSystems;
 
 public class Top {
 	
 	BufferedImage image = null;
+	String imagePath;
+	String currentDir;
 	Game game;
 	public Top(GameBoard board, Game game) {
-		try {image = ImageIO.read(new File("C:\\Users\\edvin\\OneDrive\\Skrivbord\\Assets\\Assets\\North.png"));} 
+		currentDir = System.getProperty("user.dir");
+		imagePath = currentDir + FileSystems.getDefault().getSeparator() + "North.png";
+		try {image = ImageIO.read(new File(imagePath));} 
 		catch (IOException e) {e.printStackTrace();}
 		this.game = game;
 	}

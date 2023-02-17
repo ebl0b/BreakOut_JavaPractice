@@ -2,14 +2,19 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 
 import javax.imageio.ImageIO;
 
 public class Right {
 	
 	BufferedImage image = null;
+	String imagePath;
+	String currentDir;
 	public Right(GameBoard board, Game game) {
-		try {image = ImageIO.read(new File("C:\\Users\\edvin\\OneDrive\\Skrivbord\\Assets\\Assets\\East.png"));} 
+		currentDir = System.getProperty("user.dir");
+		imagePath = currentDir + FileSystems.getDefault().getSeparator() + "East.png";
+		try {image = ImageIO.read(new File(imagePath));} 
 		catch (IOException e) {e.printStackTrace();}
 	}
 	

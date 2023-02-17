@@ -3,15 +3,20 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 
 import javax.imageio.ImageIO;
 
 public class BlueBox extends ColoredBox{
 	
 	BufferedImage image = null;
+	String imagePath;
+	String currentDir;
 	public BlueBox(int x, int y, int width, int height) {
 		super(x, y, width, height, Color.BLUE, false);
-		try {image = ImageIO.read(new File("C:\\Users\\edvin\\OneDrive\\Skrivbord\\Assets\\Assets\\BlueBox.png"));} 
+		currentDir = System.getProperty("user.dir");
+		imagePath = currentDir + FileSystems.getDefault().getSeparator() + "BlueBox.png";
+		try {image = ImageIO.read(new File(imagePath));} 
 		catch (IOException e) {e.printStackTrace();}
 	}
 	@Override

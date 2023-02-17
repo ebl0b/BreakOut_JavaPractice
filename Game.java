@@ -4,6 +4,7 @@ import java.awt.Shape;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.nio.file.FileSystems;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -23,6 +24,8 @@ public class Game {
 	ResetterGameOver resetterGameOver = new ResetterGameOver();
 	ResetterStageComplete resetterStageComplete = new ResetterStageComplete();
 	private int score, lives, stage;
+	String audioPath;
+	String currentDir;
 	
 	public int getScore() {return score;}
 	public int getLives() {return lives;}
@@ -32,6 +35,8 @@ public class Game {
 		score = 0;
 		lives = 3;
 		stage = 1;
+		currentDir = System.getProperty("user.dir");
+		audioPath = currentDir + FileSystems.getDefault().getSeparator() + "krock.wav.";
 	}
 
 	public void update(Keyboard keyboard) {
@@ -59,7 +64,7 @@ public class Game {
 	public void audio() {
 		try {
 			Clip krock = AudioSystem.getClip();
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\edvin\\OneDrive\\Skrivbord\\Assets\\Assets\\krock.wav"));
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(audioPath));
 			krock.open(inputStream);
 			krock.start();}
 			catch (Exception e) {}

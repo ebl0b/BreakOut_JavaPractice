@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -13,11 +14,15 @@ public class Ball extends Sprite{
 	private int dx, dy;
 
 	BufferedImage image = null;
+	String imagePath;
+	String currentDir;
 	public Ball(int x, int y, int width, int height, int dx, int dy) {
 		super(x, y, width, height);
 		this.dx = dx;
 		this.dy = dy;
-		try {image = ImageIO.read(new File("C:\\Users\\edvin\\OneDrive\\Skrivbord\\Assets\\Assets\\Ball.png"));}
+		currentDir = System.getProperty("user.dir");
+		imagePath = currentDir + FileSystems.getDefault().getSeparator() + "Ball.png";
+		try {image = ImageIO.read(new File(imagePath));}
 		catch (IOException e) {e.printStackTrace();}
 	}
 

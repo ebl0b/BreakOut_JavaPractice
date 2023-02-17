@@ -3,18 +3,23 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 
 import javax.imageio.ImageIO;
 
 public class Bat extends Sprite{
 	
 	BufferedImage image = null;
+	String imagePath;
+	String currentDir;
 	private int dx;
 	private int dnorth, dsouth, dwest, deast;
 	public Bat(int x, int y, int width, int height, int dx) {
 		super(x, y, width, height);
 		this.dx = dx;
-		try {image = ImageIO.read(new File("C:\\Users\\edvin\\OneDrive\\Skrivbord\\Assets\\Assets\\Bat.png"));} 
+		currentDir = System.getProperty("user.dir");
+		imagePath = currentDir + FileSystems.getDefault().getSeparator() + "Bat.png";
+		try {image = ImageIO.read(new File(imagePath));} 
 		catch (IOException e) {e.printStackTrace();}
 	}
 
