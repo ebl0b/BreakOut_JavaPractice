@@ -10,20 +10,17 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Ball extends Sprite{
-	private int dx, dy, hp;
+	private int dx, dy;
 
 	BufferedImage image = null;
 	public Ball(int x, int y, int width, int height, int dx, int dy) {
 		super(x, y, width, height);
 		this.dx = dx;
 		this.dy = dy;
-		hp = 3;
-		try {image = ImageIO.read(new File("C:\\Users\\Edvin\\Desktop\\temp-20230208T223341Z-001\\temp\\Bounce001\\Ball.png"));}
+		try {image = ImageIO.read(new File("C:\\Users\\edvin\\OneDrive\\Skrivbord\\Assets\\Assets\\Ball.png"));}
 		catch (IOException e) {e.printStackTrace();}
 	}
 
-	public int getHp() {return hp;}
-	public void setHp(int hp) {this.hp = hp;}
 	public int getDx() {return dx;}
 	public void setDx(int dx) {this.dx = dx;}
 	public int getDy() {return dy;}
@@ -51,30 +48,17 @@ public class Ball extends Sprite{
 	public void draw(Graphics2D g) {
 		g.drawImage(image, getX(), getY(), null);
 	}
-	public void checkHeight(Grid grid) {
-		if(getY()>768) {
-			hp--;
-			if(hp<0) {
-				JFrame f = new JFrame();
-				JOptionPane mes = new JOptionPane();
-				int choice = mes.showConfirmDialog(f, "Game Over! Restart?");
-				if(choice == JOptionPane.NO_OPTION) {System.exit(0);}
-				if(choice == JOptionPane.YES_OPTION) {
-					grid.reset();
-					setDx(-7);
-					setDy(-7);
-					setX(497);
-					setY(600);
-					setHp(3);
-				}
-			}
-			else {
-				setDx(-7);
-				setDy(-7);
-				setX(497);
-				setY(600);
-			}
-		}
+	public int checkHeight(Grid grid, int lives) {
+		if(getY()>768&&lives<=0) {return 1;}
+		if(getY()>768&&lives>0) {return -1;}
+		else return 0;
+	}
+	
+	public void reset() {
+		setDx(-7);
+		setDy(-7);
+		setX(497);
+		setY(600);
 	}
 
 }

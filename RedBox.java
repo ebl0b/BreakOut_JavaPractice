@@ -11,7 +11,7 @@ public class RedBox extends ColoredBox{
 	BufferedImage image = null;
 	public RedBox(int x, int y, int width, int height) {
 		super(x, y, width, height, Color.RED, false);
-		try {image = ImageIO.read(new File("C:\\Users\\Edvin\\Desktop\\temp-20230208T223341Z-001\\temp\\Bounce001\\RedBox.png"));} 
+		try {image = ImageIO.read(new File("C:\\Users\\edvin\\OneDrive\\Skrivbord\\Assets\\Assets\\RedBox.png"));} 
 		catch (IOException e) {e.printStackTrace();}
 	}
 	@Override

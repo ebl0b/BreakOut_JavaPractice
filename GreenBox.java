@@ -11,7 +11,7 @@ public class GreenBox extends ColoredBox{
 	BufferedImage image = null;
 	public GreenBox(int x, int y, int width, int height) {
 		super(x, y, width, height, Color.GREEN, false);
-		try {image = ImageIO.read(new File("C:\\Users\\Edvin\\Desktop\\temp-20230208T223341Z-001\\temp\\Bounce001\\GreenBox.png"));} 
+		try {image = ImageIO.read(new File("C:\\Users\\edvin\\OneDrive\\Skrivbord\\Assets\\Assets\\GreenBox.png"));} 
 		catch (IOException e) {e.printStackTrace();}
 	}
 	@Override

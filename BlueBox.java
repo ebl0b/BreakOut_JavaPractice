@@ -11,7 +11,7 @@ public class BlueBox extends ColoredBox{
 	BufferedImage image = null;
 	public BlueBox(int x, int y, int width, int height) {
 		super(x, y, width, height, Color.BLUE, false);
-		try {image = ImageIO.read(new File("C:\\Users\\Edvin\\Desktop\\temp-20230208T223341Z-001\\temp\\Bounce001\\BlueBox.png"));} 
+		try {image = ImageIO.read(new File("C:\\Users\\edvin\\OneDrive\\Skrivbord\\Assets\\Assets\\BlueBox.png"));} 
 		catch (IOException e) {e.printStackTrace();}
 	}
 	@Override

@@ -20,8 +20,14 @@ public class Game {
 	Bat bat = new Bat(422, 700, 160, 30, 10);
 	Edges edges = new Edges();
 	Grid grid = new Grid(4, 10);
+	ResetterGameOver resetterGameOver = new ResetterGameOver();
+	ResetterStageComplete resetterStageComplete = new ResetterStageComplete();
 	private int score, lives, stage;
 	
+	public int getScore() {return score;}
+	public int getLives() {return lives;}
+	public int getStage() {return stage;}
+
 	public Game(GameBoard board) {
 		score = 0;
 		lives = 3;
@@ -37,19 +43,23 @@ public class Game {
 		int gridc = grid.checkCol(ball);
 		int edgesc = edges.checkCol(ball);
 		
+		if(gridc!=2) {score++;}
 		if(batc!=2||gridc!=2||edgesc!=2) {audio();}
 		
 		if(batc==1) {ball.spin(keyboard); ball.invertDy();}
 		if(edgesc==1||gridc==1) {ball.invertDy();}
 		if(batc==0||edgesc==0||gridc==0) {ball.invertDx();}
+		if(batc==-1||edgesc==-1||gridc==-1) {ball.invertDx(); ball.invertDy();}
 		
-		ball.checkHeight(grid);
+		if(ball.checkHeight(grid, lives)==1) {score = 0; stage=1; lives=3; resetterGameOver.reset(grid, ball);}
+		if(ball.checkHeight(grid, lives)==-1) {lives--; ball.reset();}
+		if(grid.checkState()==true) {stage++; lives=3; resetterStageComplete.reset(grid, ball);}
 	}
 	
 	public void audio() {
 		try {
 			Clip krock = AudioSystem.getClip();
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\Edvin\\Desktop\\temp-20230208T223341Z-001\\temp\\Bounce001\\krock.wav"));
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\edvin\\OneDrive\\Skrivbord\\Assets\\Assets\\krock.wav"));
 			krock.open(inputStream);
 			krock.start();}
 			catch (Exception e) {}
@@ -59,7 +69,5 @@ public class Game {
 		ball.draw(graphics);
 		bat.draw(graphics);
 		grid.draw(graphics);
-		
-		
 	}
 }

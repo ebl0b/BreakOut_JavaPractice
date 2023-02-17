@@ -46,7 +46,7 @@ public class ColoredBox extends Sprite{
 			if(dsouth<dnorth&&dsouth<dwest&&dsouth<deast) return 1;
 			if(dwest<dsouth&&dwest<dnorth&&dwest<deast) return 0;
 			if(deast<dsouth&&deast<dwest&&deast<dnorth) return 0;
-			else return 1;
+			else return -1;
 			
 		}	
 		else return 2;

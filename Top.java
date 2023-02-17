@@ -12,7 +12,7 @@ public class Top {
 	BufferedImage image = null;
 	Game game;
 	public Top(GameBoard board, Game game) {
-		try {image = ImageIO.read(new File("C:\\Users\\Edvin\\Desktop\\temp-20230208T223341Z-001\\temp\\Bounce001\\North.png"));} 
+		try {image = ImageIO.read(new File("C:\\Users\\edvin\\OneDrive\\Skrivbord\\Assets\\Assets\\North.png"));} 
 		catch (IOException e) {e.printStackTrace();}
 		this.game = game;
 	}
@@ -25,9 +25,9 @@ public class Top {
 		g.drawImage(image, 0, 0, null);
 		g.setColor(Color.white);
 		g.setFont(new Font("Bank Gothic Light BT", Font.PLAIN, 35));
-		g.drawString("Lives: " + game.ball.getHp(), 55, 75);
-		g.drawString("Stage: ", 415, 75);
-		g.drawString("Score: " + game.grid.getScore(), 820, 75);
+		g.drawString("Lives: " + game.getLives(), 55, 75);
+		g.drawString("Stage: " + game.getStage(), 415, 75);
+		g.drawString("Score: " + game.getScore(), 820, 75);
 	}
 	
 }

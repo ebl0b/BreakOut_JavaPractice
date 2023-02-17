@@ -68,4 +68,10 @@ public class Row {
 			
 		}
 	}
+	public Boolean checkState() {
+		for(int i = 0; i<len; i++) {
+			if(row.get(i).getIsTransparent()==false) {return false;}
+		}
+		return true;
+	}
 }

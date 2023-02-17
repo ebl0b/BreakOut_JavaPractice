@@ -3,10 +3,9 @@ import java.util.*;
 
 public class Grid {
 	ArrayList<Row> grid;
-	private int y = 80, score = 0;
-	public int getScore() {return score;}
-	public void setScore(int score) {this.score = score;}
+	private int y = 80;
 	private int rows, columns;
+	
 	public Grid(int rows, int columns) {
 		this.rows = rows;
 		this.columns = columns;
@@ -24,7 +23,6 @@ public class Grid {
 	public int checkCol(Ball ball) {
 		for(int i = 0; i<rows; i++) {
 			int gridc = grid.get(i).checkCol(ball);
-			if(gridc!=2) score++;
 			if(gridc==1) {return 1;}
 			if(gridc==0) {return 0;}
 		}
@@ -33,6 +31,12 @@ public class Grid {
 	public void reset() {
 		for(int i = 0; i<rows; i++)
 			grid.get(i).reset();
-		setScore(0);
+	}
+	
+	public Boolean checkState() {
+		for(int i = 0; i<rows; i++) {
+			if(grid.get(i).checkState()==false) {return false;}
+		}
+		return true;
 	}
 }

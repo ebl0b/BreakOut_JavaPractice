@@ -9,7 +9,7 @@ public class Right {
 	
 	BufferedImage image = null;
 	public Right(GameBoard board, Game game) {
-		try {image = ImageIO.read(new File("C:\\Users\\Edvin\\Desktop\\temp-20230208T223341Z-001\\temp\\Bounce001\\East.png"));} 
+		try {image = ImageIO.read(new File("C:\\Users\\edvin\\OneDrive\\Skrivbord\\Assets\\Assets\\East.png"));} 
 		catch (IOException e) {e.printStackTrace();}
 	}
 	

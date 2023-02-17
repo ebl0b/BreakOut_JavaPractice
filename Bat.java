@@ -14,7 +14,7 @@ public class Bat extends Sprite{
 	public Bat(int x, int y, int width, int height, int dx) {
 		super(x, y, width, height);
 		this.dx = dx;
-		try {image = ImageIO.read(new File("C:\\Users\\Edvin\\Desktop\\temp-20230208T223341Z-001\\temp\\Bounce001\\Bat.png"));} 
+		try {image = ImageIO.read(new File("C:\\Users\\edvin\\OneDrive\\Skrivbord\\Assets\\Assets\\Bat.png"));} 
 		catch (IOException e) {e.printStackTrace();}
 	}
 
@@ -43,11 +43,11 @@ public class Bat extends Sprite{
 			dnorth = Math.abs(ball.getP2y()-getP1y()); dsouth = Math.abs(ball.getP1y()-getP2y());
 			dwest = Math.abs(ball.getP2x()-getP1x()); deast = Math.abs(ball.getP1x()-getP2x());
 			
-			if(dnorth<dsouth&&dnorth<dwest&&dnorth<deast) return 1;
-			if(dsouth<dnorth&&dsouth<dwest&&dsouth<deast) return 1;
-			if(dwest<dsouth&&dwest<dnorth&&dwest<deast) return 0;
-			if(deast<dsouth&&deast<dwest&&deast<dnorth) return 0;
-			else return 1;
+			if(dnorth<dsouth&&dnorth<dwest&&dnorth<deast) {ball.setY(ball.getY()-10); return 1;}
+			if(dsouth<dnorth&&dsouth<dwest&&dsouth<deast) {ball.setY(ball.getY()+10); return 1;}
+			if(dwest<dsouth&&dwest<dnorth&&dwest<deast) {ball.setX(ball.getX()-10); return 0;}
+			if(deast<dsouth&&deast<dwest&&deast<dnorth) {ball.setX(ball.getX()+10); return 0;}
+			else return -1;
 			
 		}	
 		else return 2;
