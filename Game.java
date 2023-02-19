@@ -32,7 +32,7 @@ public class Game {
 	public int getStage() {return stage;}
 
 	public Game(GameBoard board) {
-		score = 0;
+		score = grid.getScore();
 		lives = 3;
 		stage = 1;
 		currentDir = System.getProperty("user.dir");
@@ -48,7 +48,7 @@ public class Game {
 		int gridc = grid.checkCol(ball);
 		int edgesc = edges.checkCol(ball);
 		
-		if(gridc!=2) {score++;}
+		score = grid.getScore();
 		if(batc!=2||gridc!=2||edgesc!=2) {audio();}
 		
 		if(batc==1) {ball.spin(keyboard); ball.invertDy();}
@@ -56,9 +56,9 @@ public class Game {
 		if(batc==0||edgesc==0||gridc==0) {ball.invertDx();}
 		if(batc==-1||edgesc==-1||gridc==-1) {ball.invertDx(); ball.invertDy();}
 		
-		if(ball.checkHeight(grid, lives)==1) {score = 0; stage=1; lives=3; resetterGameOver.reset(grid, ball);}
+		if(ball.checkHeight(grid, lives)==1) {grid.setScore(0); stage=1; lives=3; resetterGameOver.reset(grid, ball);}
 		if(ball.checkHeight(grid, lives)==-1) {lives--; ball.reset();}
-		if(grid.checkState()==true) {stage++; lives=3; resetterStageComplete.reset(grid, ball);}
+		if(grid.checkState()==true) {stage++; lives=3; resetterStageComplete.reset(grid, ball, score);}
 	}
 	
 	public void audio() {

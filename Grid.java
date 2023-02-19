@@ -4,14 +4,14 @@ import java.util.*;
 public class Grid {
 	ArrayList<Row> grid;
 	private int y = 80;
-	private int rows, columns;
+	private int rows, columns, score = 0;
 	
 	public Grid(int rows, int columns) {
 		this.rows = rows;
 		this.columns = columns;
 		grid = new ArrayList<Row>();
 		for(int i = 0; i<rows; i++) {
-			grid.add(new Row(columns, y));
+			grid.add(new Row(columns, y, this));
 			y+=55;
 		}
 	}
@@ -31,6 +31,13 @@ public class Grid {
 	public void reset() {
 		for(int i = 0; i<rows; i++)
 			grid.get(i).reset();
+	}
+
+	public int getScore(){
+		return score;
+	}
+	public void setScore(int val){
+		score = val;
 	}
 	
 	public Boolean checkState() {

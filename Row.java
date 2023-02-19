@@ -9,16 +9,19 @@ public class Row {
 	private int rnum;
 	private int tmpx, tmpy;
 	int x = 20, y;
-	public Row(int len, int y) {
+	Grid grid;
+	public Row(int len, int y, Grid grid) {
 		row = new ArrayList<ColoredBox>();
 		this.len = len;
 		this.y = y;
+		this.grid = grid;
 		for(int i = 0; i<len; i++) {
 			rand = new Random();
-			rnum = rand.nextInt(3);
-			if(rnum==0) {row.add(new RedBox(x, y, 90, 45));}
-			if(rnum==1) {row.add(new BlueBox(x, y, 90, 45));}
-			if(rnum==2) {row.add(new GreenBox(x, y, 90, 45));}
+			rnum = rand.nextInt(10);
+			if(rnum==0||rnum==1||rnum==2) {row.add(new RedBox(x, y, 90, 45));}
+			if(rnum==3||rnum==4||rnum==5) {row.add(new BlueBox(x, y, 90, 45));}
+			if(rnum==6||rnum==7) {row.add(new GreenBox(x, y, 90, 45));}
+			if(rnum==8||rnum==9) {row.add(new PurpleBox(x, y, 90, 45));}
 			x+=100;
 		}
 	}
@@ -35,22 +38,42 @@ public class Row {
 			int rowc = row.get(i).checkCol(ball);
 			if(rowc==1&&row.get(i).getIsTransparent()==false) {
 				tmpx = row.get(i).getX(); tmpy = row.get(i).getY();
-				if(row.get(i) instanceof GreenBox)
+				if(row.get(i) instanceof GreenBox){
 					row.set(i, new BlueBox(tmpx, tmpy, 90, 45)); 
-				else if(row.get(i) instanceof BlueBox)
+					grid.setScore(grid.getScore()+1);
+				}
+				else if(row.get(i) instanceof BlueBox){
 					row.set(i, new RedBox(tmpx, tmpy, 90, 45));
-				else if(row.get(i) instanceof RedBox)
+					grid.setScore(grid.getScore()+1);
+				}
+				else if(row.get(i) instanceof RedBox){
 					row.get(i).setIsTransparent(true);
+					grid.setScore(grid.getScore()+1);
+				}
+				else if(row.get(i) instanceof PurpleBox){
+					row.get(i).setIsTransparent(true);
+					grid.setScore(grid.getScore()+2);
+				}
 				return 1;
 			}
 			else if(rowc==0&&row.get(i).getIsTransparent()==false) {
 				tmpx = row.get(i).getX(); tmpy = row.get(i).getY();
-				if(row.get(i) instanceof GreenBox)
+				if(row.get(i) instanceof GreenBox){
 					row.set(i, new BlueBox(tmpx, tmpy, 90, 45)); 
-				else if(row.get(i) instanceof BlueBox)
+					grid.setScore(grid.getScore()+1);
+				}
+				else if(row.get(i) instanceof BlueBox){
 					row.set(i, new RedBox(tmpx, tmpy, 90, 45));
-				else if(row.get(i) instanceof RedBox)
+					grid.setScore(grid.getScore()+1);
+				}
+				else if(row.get(i) instanceof RedBox){
 					row.get(i).setIsTransparent(true); 
+					grid.setScore(grid.getScore()+1);
+				}
+				else if(row.get(i) instanceof PurpleBox){
+					row.get(i).setIsTransparent(true);
+					grid.setScore(grid.getScore()+2);
+				}
 				return 0;
 			}
 		}
@@ -60,14 +83,16 @@ public class Row {
 		x = 20;
 		for(int i = 0; i<len; i++) {
 			Random rand = new Random();
-			int tmp = rand.nextInt(3);
-			if(tmp==0) {row.set(i, new RedBox(x, y, 90, 45));}
-			if(tmp==1) {row.set(i, new BlueBox(x, y, 90, 45));}
-			if(tmp==2) {row.set(i, new GreenBox(x, y, 90, 45));}
+			int tmp = rand.nextInt(10);
+			if(tmp==0||tmp==1||tmp==2) {row.set(i, new RedBox(x, y, 90, 45));}
+			if(tmp==3||tmp==4||tmp==5) {row.set(i, new BlueBox(x, y, 90, 45));}
+			if(tmp==6||tmp==7) {row.set(i, new GreenBox(x, y, 90, 45));}
+			if(tmp==8||tmp==9) {row.set(i, new PurpleBox(x, y, 90, 45));}
 			x+=100;
 			
 		}
 	}
+
 	public Boolean checkState() {
 		for(int i = 0; i<len; i++) {
 			if(row.get(i).getIsTransparent()==false) {return false;}
