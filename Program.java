@@ -27,7 +27,7 @@ public class Program extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("start");
+		System.out.println("starto");
 		Program program = new Program();
 	}
 
