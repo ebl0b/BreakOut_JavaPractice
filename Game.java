@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.nio.file.FileSystems;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -21,6 +20,7 @@ public class Game {
 	Bat bat = new Bat(422, 700, 160, 30, 10);
 	Edges edges = new Edges();
 	Grid grid = new Grid(4, 10);
+	GameBoard board;
 	ResetterGameOver resetterGameOver = new ResetterGameOver();
 	ResetterStageComplete resetterStageComplete = new ResetterStageComplete();
 	private int score, lives, stage;
@@ -37,9 +37,12 @@ public class Game {
 		stage = 1;
 		currentDir = System.getProperty("user.dir");
 		audioPath = currentDir + FileSystems.getDefault().getSeparator() + "krock.wav.";
+		this.board = board;
 	}
 
 	public void update(Keyboard keyboard) {
+
+		//System.out.println("test");
 		
 		ball.update(keyboard);
 		bat.update(keyboard);
@@ -56,7 +59,7 @@ public class Game {
 		if(batc==0||edgesc==0||gridc==0) {ball.invertDx();}
 		if(batc==-1||edgesc==-1||gridc==-1) {ball.invertDx(); ball.invertDy();}
 		
-		if(ball.checkHeight(grid, lives)==1) {grid.setScore(0); stage=1; lives=3; resetterGameOver.reset(grid, ball);}
+		if(ball.checkHeight(grid, lives)==1) {grid.setScore(0); stage=1; lives=3; resetterGameOver.reset(grid, ball, board, score);}
 		if(ball.checkHeight(grid, lives)==-1) {lives--; ball.reset();}
 		if(grid.checkState()==true) {stage++; lives=3; resetterStageComplete.reset(grid, ball, score);}
 	}

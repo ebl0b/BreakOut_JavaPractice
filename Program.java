@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-
 import javax.swing.*;
 
 public class Program extends JFrame {
@@ -27,8 +26,7 @@ public class Program extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("starto");
+		System.out.println("start");
 		Program program = new Program();
 	}
-
 }
