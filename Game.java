@@ -23,9 +23,12 @@ public class Game {
 	GameBoard board;
 	ResetterGameOver resetterGameOver = new ResetterGameOver();
 	ResetterStageComplete resetterStageComplete = new ResetterStageComplete();
-	private int score, lives, stage;
+	int score, lives, stage;
 	String audioPath;
 	String currentDir;
+	String playerName = "---";
+	JOptionPane playerNameInput;
+	PauseMenu pauseMenu;
 	
 	public int getScore() {return score;}
 	public int getLives() {return lives;}
@@ -38,12 +41,14 @@ public class Game {
 		currentDir = System.getProperty("user.dir");
 		audioPath = currentDir + FileSystems.getDefault().getSeparator() + "krock.wav.";
 		this.board = board;
+		pauseMenu = new PauseMenu(board, this);
 	}
 
 	public void update(Keyboard keyboard) {
 
-		//System.out.println("test");
-		
+		if(!pauseMenu.isVisible()){pauseMenu.show(keyboard);}
+		if(pauseMenu.isVisible()) board.requestFocusInWindow();
+
 		ball.update(keyboard);
 		bat.update(keyboard);
 		
@@ -59,7 +64,7 @@ public class Game {
 		if(batc==0||edgesc==0||gridc==0) {ball.invertDx();}
 		if(batc==-1||edgesc==-1||gridc==-1) {ball.invertDx(); ball.invertDy();}
 		
-		if(ball.checkHeight(grid, lives)==1) {grid.setScore(0); stage=1; lives=3; resetterGameOver.reset(grid, ball, board, score);}
+		if(ball.checkHeight(grid, lives)==1) {resetterGameOver.reset(board, this);}
 		if(ball.checkHeight(grid, lives)==-1) {lives--; ball.reset();}
 		if(grid.checkState()==true) {stage++; lives=3; resetterStageComplete.reset(grid, ball, score);}
 	}
@@ -77,5 +82,24 @@ public class Game {
 		ball.draw(graphics);
 		bat.draw(graphics);
 		grid.draw(graphics);
+	}
+
+	public void setPlayer(){
+		JFrame tmp = new JFrame();
+		playerName = JOptionPane.showInputDialog("Who's playing?");
+		
+	}
+	public void reset(){
+		board.requestFocusInWindow();
+		grid.reset();
+		ball.reset();
+		bat.reset();
+		if(board.highScore.scoreCmp(score)==true){
+			board.highScore.addHighScore(playerName, score);
+		}
+		board.recentPlays.addPlay(score);
+		stage = 1;
+		lives = 3;
+		grid.setScore(0);
 	}
 }

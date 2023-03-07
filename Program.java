@@ -16,6 +16,7 @@ public class Program extends JFrame {
 		add(board);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
+		setLocationRelativeTo(null);
 		board.start();
 	}
 	

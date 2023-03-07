@@ -8,9 +8,9 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class GameBoard extends Container {
+public class GameBoard extends JComponent {
 	private final int FPS = 80; 
-	protected int view = 0;
+	int view = 0;
 	private Game game;
 	private Menu menu;
 	private Left left;
@@ -22,6 +22,8 @@ public class GameBoard extends Container {
 	
 	MouseListener l;
 	CardLayout crdl;
+	GridBagConstraints gbc;
+	GridBagConstraints gbc2;
 	JPanel crd2;
 	Crd1 crd1;
 	North north;
@@ -30,6 +32,7 @@ public class GameBoard extends Container {
 	South south;
 	Center center;
 	HighScore highScore;
+	RecentPlays recentPlays;
 	
 	public GameBoard() {
 		darkGray = new Color(40,36,36);
@@ -40,6 +43,8 @@ public class GameBoard extends Container {
 		crd1 = new Crd1();
 		crd2 = new JPanel();
 		crdl = new CardLayout();
+		gbc = new GridBagConstraints();
+		gbc2 = new GridBagConstraints();
 		setLayout(crdl);
 		add("Menu", crd1);
 		add("Game", crd2);
@@ -51,13 +56,33 @@ public class GameBoard extends Container {
 		south = new South();
 		center = new Center();
 		highScore = new HighScore();
+		recentPlays = new RecentPlays();
 		
 		crd2.add(north, BorderLayout.NORTH);
 		crd2.add(west, BorderLayout.WEST);
 		crd2.add(center, BorderLayout.CENTER);
 		crd2.add(east, BorderLayout.EAST);
 		crd2.add(south, BorderLayout.SOUTH);
-		east.add(highScore);
+		east.setLayout(new GridBagLayout());
+		gbc.insets = new Insets(0, 45, 0, 0);
+		gbc.gridx = GridBagConstraints.RELATIVE;
+		gbc.gridy = GridBagConstraints.RELATIVE;
+		gbc.ipadx = 250;
+        gbc.ipady = 290;
+		gbc.weightx = 1;
+        gbc.weighty = 1;
+		gbc.anchor = GridBagConstraints.FIRST_LINE_START;
+		east.add(highScore, gbc);
+
+		gbc2.insets = new Insets(364, -293, 0, 0);
+		gbc2.gridx = GridBagConstraints.RELATIVE;
+		gbc2.gridy = GridBagConstraints.RELATIVE;
+		gbc2.ipadx = 250;
+        gbc2.ipady = 290;
+		gbc2.weightx = 1;
+        gbc2.weighty = 1;
+		gbc2.anchor = GridBagConstraints.LINE_START;
+		east.add(recentPlays, gbc2);
 
 		//if(highScore.scoreCmp(999)==true)
 			//highScore.addHighScore("test", 999);
@@ -69,6 +94,7 @@ public class GameBoard extends Container {
 		center.setPreferredSize(new Dimension(1035, 795));
 		south.setPreferredSize(new Dimension(1035, 0));
 		crd1.setLayout(null);
+		
 		
 		game = new Game(this);
 		menu = new Menu(this);
@@ -157,6 +183,8 @@ public class GameBoard extends Container {
 	public void start() {
 		while(true){
 			while(view==1) {
+				//Component focusedComponent = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+				//System.out.println(focusedComponent);
 				game.update(keyboard);
 				try {
 					Thread.sleep(1000 / FPS); //Throttle thread
@@ -169,10 +197,15 @@ public class GameBoard extends Container {
 				center.repaint();
 				//this.repaint();
 			}
+			crdl.show(this, "Menu");
 			while(view==0){
+				
 				crd1.repaint();
-				if(view==1){crdl.next(this);}
 			}
+			crdl.show(this, "Game");
+			requestFocus();
+			game.setPlayer();
+            
 		}
 	}
 }

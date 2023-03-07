@@ -2,10 +2,15 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
 
-public class HighScore extends JPanel
+public class HighScore extends JScrollPane
 {
 
 	Object[][] highScores = {
+		{"-", 0},
+		{"-", 0},
+		{"-", 0},
+		{"-", 0},
+		{"-", 0},
 		{"-", 0},
 		{"-", 0},
 		{"-", 0},
@@ -15,23 +20,18 @@ public class HighScore extends JPanel
 	Object[] columnNames = {"Name", "Score"};
 	DefaultTableModel model;
 	JTable table;
-	JScrollPane scrollpane;
 	public HighScore()
 	{
-		//setLayout(null);
 		model = new DefaultTableModel(highScores, columnNames);
 		table = new JTable(model);
-		scrollpane = new JScrollPane(table);
-		scrollpane.getViewport().setViewPosition(new Point(45, -5));
-		scrollpane.setBounds(45, 45, 270, 270);
-		scrollpane.setPreferredSize(new Dimension(260, 300));
+		setViewportView(table);
 		table.setEnabled(false);
-		table.setRowHeight(50);
-		add(scrollpane);
+		table.setRowHeight(29);
+		
 	}
 
 	private void mov(int index){
-		for(int i = 4; index!=0 ? i>=index : i>index; i--){
+		for(int i = 9; index!=0 ? i>=index : i>index; i--){
 			highScores[i][0] = highScores[i-1][0];
 			highScores[i][1] = highScores[i-1][1];
 			model.setValueAt(highScores[i-1][0], i, 0);
@@ -41,7 +41,7 @@ public class HighScore extends JPanel
 
 	public void addHighScore(String name, int score){
 		Integer lScore = new Integer(score);
-		for(int i = 4; i>=0; i--){
+		for(int i = 9; i>=0; i--){
 			if(lScore<(Integer)(highScores[i][1])){
 				mov(i+1);
 				highScores[i+1][0] = name;
@@ -60,7 +60,7 @@ public class HighScore extends JPanel
 
 	public Boolean scoreCmp(int score){
 		Integer lScore = new Integer(score);
-		for(int i = 0; i<5; i++){
+		for(int i = 0; i<10; i++){
 			if(lScore>(Integer)(highScores[i][1])){System.out.println("ja"); return true;}
 		}
 		System.out.println("fel");

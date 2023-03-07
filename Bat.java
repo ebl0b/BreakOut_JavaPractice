@@ -26,7 +26,7 @@ public class Bat extends Sprite{
 	@Override
 	public void update(Keyboard k) {
 
-		if(k.isKeyDown(Key.Z)||k.isKeyDown(Key.X))System.out.println("test");
+		
 		if(k.isKeyDown(Key.Z)&&getX()>10) {setX(getX()-dx);}
 		if(k.isKeyDown(Key.X)&&getX()+getWidth()<1025) {setX(getX()+dx);}
 		if(k.isKeyDown(Key.Z)&&getX()>10&&k.isKeyDown(Key.Space)) {setX(getX()-2*dx);}
@@ -59,5 +59,9 @@ public class Bat extends Sprite{
 		}	
 		else return 2;
 		
+	}
+	public void reset(){
+		setX(422);
+		setY(700);
 	}
 }
