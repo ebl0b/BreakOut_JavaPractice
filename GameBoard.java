@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GameBoard extends JComponent {
-	private final int FPS = 80; 
+	final int FPS = 80; 
 	int view = 0;
 	private Game game;
 	private Menu menu;

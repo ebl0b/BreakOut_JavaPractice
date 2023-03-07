@@ -46,8 +46,8 @@ public class Game {
 
 	public void update(Keyboard keyboard) {
 
-		if(!pauseMenu.isVisible()){pauseMenu.show(keyboard);}
-		if(pauseMenu.isVisible()) board.requestFocusInWindow();
+		if(!pauseMenu.isVisible()){pauseMenu.showc(keyboard);}
+		//if(pauseMenu.isVisible()) board.requestFocusInWindow();
 
 		ball.update(keyboard);
 		bat.update(keyboard);

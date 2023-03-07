@@ -1,6 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class PauseMenu extends JPopupMenu{
 	JMenuItem continu;
@@ -9,6 +10,7 @@ public class PauseMenu extends JPopupMenu{
 	JMenuItem returnTo;
 	GameBoard board;
 	Game game;
+	Boolean state = false;
 
 	public PauseMenu(GameBoard board, Game game){
 
@@ -26,10 +28,15 @@ public class PauseMenu extends JPopupMenu{
 		add(returnTo);
 		add(quit);
 
+		 setInvoker(null);
+         //setModal(true);
+
 		continu.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
 				board.requestFocusInWindow();
+				state = true;
+				
 			}
 		});
 		restart.addActionListener(new ActionListener(){
@@ -37,6 +44,7 @@ public class PauseMenu extends JPopupMenu{
 			public void actionPerformed(ActionEvent e){
 				board.requestFocusInWindow();
 				game.reset();
+				state = true;
 			}
 		});
 		returnTo.addActionListener(new ActionListener(){
@@ -44,6 +52,8 @@ public class PauseMenu extends JPopupMenu{
 			public void actionPerformed(ActionEvent e){
 				game.reset();
 				board.view = 0;
+				state = true;
+				
 			}
 		});
 		quit.addActionListener(new ActionListener(){
@@ -54,12 +64,19 @@ public class PauseMenu extends JPopupMenu{
 		});
 	}
 
-	public void show(Keyboard k){
-		int tmp = 0;
+	public void showc(Keyboard k){
+		Boolean tmp = false;
+
 		while(k.isKeyDown(Key.Escape)){
-			if(tmp == 0)
-				this.show(board, 410, 250);
-			tmp++;
+			tmp = true;
+		}
+		if(tmp == true){
+			this.show(board, 410, 250);
+			while(state==false){
+				try {Thread.sleep(1000 / board.FPS);} 
+				catch (InterruptedException e) {e.printStackTrace();}
+			}
+			state = false;
 		}
 	}
 	public void close(Keyboard k){
