@@ -1,13 +1,12 @@
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class ResetterStageComplete extends Resetter{
+public class ResetterStageComplete{
 	private int score;
-	public void reset(Grid grid, Ball ball, int score) {
-		JFrame f = new JFrame();
+	public void reset(GameBoard board, Game game) {
 		JOptionPane mes = new JOptionPane();
-		int choice = mes.showConfirmDialog(f, "Stage Completed with a score of: " + score + "! Continue?");
+		int choice = mes.showConfirmDialog(board, "Stage Completed with a score of: " + game.score + "! Continue?");
 		if(choice == JOptionPane.NO_OPTION) {System.exit(0);}
-		if(choice == JOptionPane.YES_OPTION) {grid.reset(); ball.reset();}
+		if(choice == JOptionPane.YES_OPTION) {game.reset();}
 	}
 }

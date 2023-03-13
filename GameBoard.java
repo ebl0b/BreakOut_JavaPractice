@@ -1,43 +1,44 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
+import javax.swing.*;
 import java.util.*;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.io.IOException;
 
 public class GameBoard extends JComponent {
-	final int FPS = 80; 
-	int view = 0;
+	private final int FPS = 80; 
+	private int view = 0;
 	private Game game;
 	private Menu menu;
 	private Left left;
 	private Top top;
 	private Right right;
+	
+	private CardLayout crdl;
+	private GridBagConstraints gbc;
+	private GridBagConstraints gbc2;
+	public JPanel crd2;
+	public Crd1 crd1;
+	public North north;
+	public West west;
+	public East east;
+	public South south;
+	public Center center;
+
 	private Keyboard keyboard;
-	private Mouse mouse;
-	Color darkGray;
+	private Color darkGray;
+	private HighScore highScore;
+	private RecentPlays recentPlays;
 	
-	MouseListener l;
-	CardLayout crdl;
-	GridBagConstraints gbc;
-	GridBagConstraints gbc2;
-	JPanel crd2;
-	Crd1 crd1;
-	North north;
-	West west;
-	East east;
-	South south;
-	Center center;
-	HighScore highScore;
-	RecentPlays recentPlays;
-	
+	public HighScore getHighScore(){return highScore;}
+	public RecentPlays getRecentPlays(){return recentPlays;}
+	public int getView(){return view;}
+	public int getFPS(){return FPS;}
+
+	public void setView(int view){this.view = view;}
+
 	public GameBoard() {
 		darkGray = new Color(40,36,36);
 		keyboard = new Keyboard();
-		mouse = new Mouse();
 		setSize(new Dimension(1454, 937));
 
 		crd1 = new Crd1();
@@ -84,10 +85,6 @@ public class GameBoard extends JComponent {
 		gbc2.anchor = GridBagConstraints.LINE_START;
 		east.add(recentPlays, gbc2);
 
-		//if(highScore.scoreCmp(999)==true)
-			//highScore.addHighScore("test", 999);
-		//center.requestFocusInWindow();
-
 		north.setPreferredSize(new Dimension(1440, 135));
 		west.setPreferredSize(new Dimension(45, 795));
 		east.setPreferredSize(new Dimension(360, 795));
@@ -95,14 +92,11 @@ public class GameBoard extends JComponent {
 		south.setPreferredSize(new Dimension(1035, 0));
 		crd1.setLayout(null);
 		
-		
 		game = new Game(this);
 		menu = new Menu(this);
 		left = new Left(this);
 		right = new Right(this, game);
 		top = new Top(this, game);
-
-		addMouseListener(l);
 	}
 
 	public class Crd1 extends JPanel{
@@ -165,11 +159,6 @@ public class GameBoard extends JComponent {
 			graphics.fillRect(0, 0, getWidth(), getHeight());
 		}
 	}
-	
-	@Override
-	public Dimension getPreferredSize() {
-		return new Dimension(1440, 900);
-	}
 
 	@Override
 	protected void processKeyEvent(KeyEvent e) {
@@ -183,23 +172,16 @@ public class GameBoard extends JComponent {
 	public void start() {
 		while(true){
 			while(view==1) {
-				//Component focusedComponent = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
-				//System.out.println(focusedComponent);
 				game.update(keyboard);
-				try {
-					Thread.sleep(1000 / FPS); //Throttle thread
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				try {Thread.sleep(1000 / FPS);} 
+				catch (InterruptedException e) {e.printStackTrace();}
 				north.repaint();
 				west.repaint();
 				east.repaint();
 				center.repaint();
-				//this.repaint();
 			}
 			crdl.show(this, "Menu");
 			while(view==0){
-				
 				crd1.repaint();
 			}
 			crdl.show(this, "Game");

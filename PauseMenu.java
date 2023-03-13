@@ -51,7 +51,7 @@ public class PauseMenu extends JPopupMenu{
 			@Override
 			public void actionPerformed(ActionEvent e){
 				game.reset();
-				board.view = 0;
+				board.setView(0);
 				state = true;
 				
 			}
@@ -73,7 +73,7 @@ public class PauseMenu extends JPopupMenu{
 		if(tmp == true){
 			this.show(board, 410, 250);
 			while(state==false){
-				try {Thread.sleep(1000 / board.FPS);} 
+				try {Thread.sleep(1000 / board.getFPS());} 
 				catch (InterruptedException e) {e.printStackTrace();}
 			}
 			state = false;

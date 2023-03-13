@@ -41,19 +41,13 @@ public class Menu implements ActionListener
 		quit.setBorderPainted(false);
 	}
 
-	public void update(Mouse m)
-	{
-		//if(m.getState()==true&&m.getX()){}
-		//else{}
-	}
-
 	public void draw(Graphics g)
 	{
 		g.drawImage(image, 0, 0, null);
 	}
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource() == play){
-			board.view = 1;
+			board.setView(1);
 		}
 		if(e.getSource() == quit){
 			System.exit(0);

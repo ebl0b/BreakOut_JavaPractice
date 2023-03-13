@@ -37,6 +37,7 @@ public class Row {
 		for(int i = 0; i<len; i++) {
 			int rowc = row.get(i).checkCol(ball);
 			if(rowc==1&&row.get(i).getIsTransparent()==false) {
+				row.get(i).audio();
 				tmpx = row.get(i).getX(); tmpy = row.get(i).getY();
 				if(row.get(i) instanceof GreenBox){
 					row.set(i, new BlueBox(tmpx, tmpy, 90, 45)); 
@@ -57,6 +58,7 @@ public class Row {
 				return 1;
 			}
 			else if(rowc==0&&row.get(i).getIsTransparent()==false) {
+				row.get(i).audio();
 				tmpx = row.get(i).getX(); tmpy = row.get(i).getY();
 				if(row.get(i) instanceof GreenBox){
 					row.set(i, new BlueBox(tmpx, tmpy, 90, 45)); 

@@ -17,8 +17,8 @@ public class Edges {
 	}
 	public int checkCol(Ball ball) {
 		for(int i = 0; i<3; i++) {
-			if(arr.get(i).checkCol(ball)==1) {return 1;}
-			if(arr.get(i).checkCol(ball)==0) {return 0;}
+			if(arr.get(i).checkCol(ball)==1) {arr.get(i).audio(); return 1;}
+			if(arr.get(i).checkCol(ball)==0) {arr.get(i).audio(); return 0;}
 		}
 		return 2;
 	}

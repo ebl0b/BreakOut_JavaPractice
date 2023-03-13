@@ -9,6 +9,7 @@ import java.nio.file.FileSystems;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import java.util.*;
 
 public class Ball extends Sprite{
 	private int dx, dy;
@@ -16,9 +17,9 @@ public class Ball extends Sprite{
 	BufferedImage image = null;
 	String imagePath;
 	String currentDir;
-	public Ball(int x, int y, int width, int height, int dx, int dy) {
+	public Ball(int x, int y, int width, int height, int dy) {
 		super(x, y, width, height);
-		this.dx = dx;
+		dRandomize();
 		this.dy = dy;
 		currentDir = System.getProperty("user.dir");
 		imagePath = currentDir + FileSystems.getDefault().getSeparator() + "Ball.png";
@@ -58,10 +59,18 @@ public class Ball extends Sprite{
 		if(getY()>768&&lives>0) {return -1;}
 		else return 0;
 	}
+
+	private void dRandomize()
+	{
+		int rdx;
+		Random rand = new Random();
+		rdx = rand.nextInt(14)-7;
+		setDx(rdx);
+	}
 	
 	//test
 	public void reset() {
-		setDx(-7);
+		dRandomize();
 		setDy(-7);
 		setX(497);
 		setY(600);

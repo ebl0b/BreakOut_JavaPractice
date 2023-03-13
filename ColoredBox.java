@@ -42,10 +42,10 @@ public class ColoredBox extends Sprite{
 			dnorth = Math.abs(ball.getP2y()-getP1y()); dsouth = Math.abs(ball.getP1y()-getP2y());
 			dwest = Math.abs(ball.getP2x()-getP1x()); deast = Math.abs(ball.getP1x()-getP2x());
 			
-			if(dnorth<dsouth&&dnorth<dwest&&dnorth<deast) return 1;
-			if(dsouth<dnorth&&dsouth<dwest&&dsouth<deast) return 1;
-			if(dwest<dsouth&&dwest<dnorth&&dwest<deast) return 0;
-			if(deast<dsouth&&deast<dwest&&deast<dnorth) return 0;
+			if(dnorth<dsouth&&dnorth<dwest&&dnorth<deast) {if(!getIsTransparent())ball.setY(ball.getY()-dnorth); return 1;}
+			if(dsouth<dnorth&&dsouth<dwest&&dsouth<deast) {if(!getIsTransparent())ball.setY(ball.getY()+dsouth); return 1;}
+			if(dwest<dsouth&&dwest<dnorth&&dwest<deast) {if(!getIsTransparent())ball.setX(ball.getX()-dwest); return 0;}
+			if(deast<dsouth&&deast<dwest&&deast<dnorth) {if(!getIsTransparent())ball.setX(ball.getX()+deast); return 0;}
 			else return -1;
 			
 		}	

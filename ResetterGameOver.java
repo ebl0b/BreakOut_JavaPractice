@@ -6,7 +6,7 @@ public class ResetterGameOver extends JOptionPane{
 
 		System.out.println("bruh");
 		int choice;
-		choice = this.showConfirmDialog(board, "Game Over! Restart?");
+		choice = this.showConfirmDialog(board, "Game Over! " + game.score + " Restart?");
 		//this.setLocationRelativeTo(board.super);
 		if(choice == JOptionPane.NO_OPTION) {System.exit(0);}
 		if(choice == JOptionPane.YES_OPTION) {

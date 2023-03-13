@@ -1,6 +1,15 @@
-import java.awt.Graphics2D;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+import java.nio.file.FileSystems;
+import javax.sound.sampled.*;
+import javax.swing.*;
+import java.applet.*;
 
 public abstract class Sprite {
+	private String audioPath;
+	private String currentDir;
 	private int x, y, width, height, p1x, p1y, p2x, p2y;
 	public int getP1x() {return p1x;}
 	public void setP1x(int p1x) {this.p1x = p1x;}
@@ -23,6 +32,16 @@ public abstract class Sprite {
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		currentDir = System.getProperty("user.dir");
+		audioPath = currentDir + FileSystems.getDefault().getSeparator() + "krock.wav.";
+	}
+	public void audio() {
+		try {
+			Clip krock = AudioSystem.getClip();
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(audioPath));
+			krock.open(inputStream);
+			krock.start();}
+			catch (Exception e) {}
 	}
 	public abstract void update(Keyboard keyboard);
 	public abstract void draw(Graphics2D graphics);
