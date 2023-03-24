@@ -4,14 +4,14 @@ import java.util.*;
 
 public class Row {
 	Random rand;
-	ArrayList<ColoredBox> row;
+	ArrayList<Box> row;
 	private int len;
 	private int rnum;
 	private int tmpx, tmpy;
 	int x = 20, y;
 	Grid grid;
 	public Row(int len, int y, Grid grid) {
-		row = new ArrayList<ColoredBox>();
+		row = new ArrayList<Box>();
 		this.len = len;
 		this.y = y;
 		this.grid = grid;

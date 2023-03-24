@@ -43,14 +43,14 @@ public class PauseMenu extends JPopupMenu{
 			@Override
 			public void actionPerformed(ActionEvent e){
 				board.requestFocusInWindow();
-				game.reset();
+				game.reset(1);
 				state = true;
 			}
 		});
 		returnTo.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				game.reset();
+				game.reset(1);
 				board.setView(0);
 				state = true;
 				

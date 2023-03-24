@@ -34,5 +34,4 @@ public class Top {
 		g.drawString("Stage: " + game.getStage(), 415, 75);
 		g.drawString("Score: " + game.getScore(), 820, 75);
 	}
-	
 }

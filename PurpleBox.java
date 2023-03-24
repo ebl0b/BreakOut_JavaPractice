@@ -7,13 +7,13 @@ import java.nio.file.FileSystems;
 
 import javax.imageio.ImageIO;
 
-public class PurpleBox extends ColoredBox{
+public class PurpleBox extends Box{
 	
 	BufferedImage image = null;
 	String imagePath;
 	String currentDir;
 	public PurpleBox(int x, int y, int width, int height) {
-		super(x, y, width, height, Color.BLUE, false);
+		super(x, y, width, height, false);
 		currentDir = System.getProperty("user.dir");
 		imagePath = currentDir + FileSystems.getDefault().getSeparator() + "PurpleBox.png";
 		try {image = ImageIO.read(new File(imagePath));} 
@@ -23,4 +23,6 @@ public class PurpleBox extends ColoredBox{
 	public void draw(Graphics2D g) {
 		g.drawImage(image, getX(), getY(), null);
 	}
+	@Override
+	public void update(Keyboard k){}
 }

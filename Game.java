@@ -66,15 +66,17 @@ public class Game
 		playerName = JOptionPane.showInputDialog("Who's playing?");
 	}
 
-	public void reset(){
+	public void reset(int a){
 		board.requestFocusInWindow();
 		grid.reset();
 		ball.reset();
 		bat.reset();
-		board.getHighScore().addHighScore(playerName, score);
-		board.getRecentPlays().addPlay(score);
-		stage = 1;
-		lives = 3;
-		grid.setScore(0);
+		if(a==1){
+			board.getHighScore().addHighScore(playerName, score);
+			board.getRecentPlays().addPlay(score);
+			stage = 1;
+			lives = 3;
+			grid.setScore(0);
+		}
 	}
 }

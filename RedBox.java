@@ -7,13 +7,13 @@ import java.nio.file.FileSystems;
 
 import javax.imageio.ImageIO;
 
-public class RedBox extends ColoredBox{
+public class RedBox extends Box{
 	
 	BufferedImage image = null;
 	String imagePath;
 	String currentDir;
 	public RedBox(int x, int y, int width, int height) {
-		super(x, y, width, height, Color.RED, false);
+		super(x, y, width, height, false);
 		currentDir = System.getProperty("user.dir");
 		imagePath = currentDir + FileSystems.getDefault().getSeparator() + "RedBox.png";
 		try {image = ImageIO.read(new File(imagePath));} 
@@ -23,5 +23,6 @@ public class RedBox extends ColoredBox{
 	public void draw(Graphics2D g) {
 		g.drawImage(image, getX(), getY(), null);
 	}
-
+	@Override
+	public void update(Keyboard k){}
 }

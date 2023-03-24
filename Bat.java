@@ -7,15 +7,14 @@ import java.nio.file.FileSystems;
 
 import javax.imageio.ImageIO;
 
-public class Bat extends Sprite{
+public class Bat extends Box{
 	
 	BufferedImage image = null;
 	String imagePath;
 	String currentDir;
 	private int dx;
-	private int dnorth, dsouth, dwest, deast;
 	public Bat(int x, int y, int width, int height, int dx) {
-		super(x, y, width, height);
+		super(x, y, width, height, false);
 		this.dx = dx;
 		currentDir = System.getProperty("user.dir");
 		imagePath = currentDir + FileSystems.getDefault().getSeparator() + "Bat.png";
@@ -26,7 +25,6 @@ public class Bat extends Sprite{
 	@Override
 	public void update(Keyboard k) {
 
-		
 		if(k.isKeyDown(Key.Z)&&getX()>10) {setX(getX()-dx);}
 		if(k.isKeyDown(Key.X)&&getX()+getWidth()<1025) {setX(getX()+dx);}
 		if(k.isKeyDown(Key.Z)&&getX()>10&&k.isKeyDown(Key.Space)) {setX(getX()-2*dx);}
@@ -43,24 +41,6 @@ public class Bat extends Sprite{
 		g.drawImage(image, getX(), getY(), null);
 	}
 	
-	
-	
-	public int checkCol(Ball ball) {
-		if(ball.getP1x()<getP2x()&&ball.getP2x()>getP1x()&&ball.getP1y()<getP2y()&&ball.getP2y()>getP1y()) {
-			audio();
-			dnorth = Math.abs(ball.getP2y()-getP1y()); dsouth = Math.abs(ball.getP1y()-getP2y());
-			dwest = Math.abs(ball.getP2x()-getP1x()); deast = Math.abs(ball.getP1x()-getP2x());
-			
-			if(dnorth<dsouth&&dnorth<dwest&&dnorth<deast) {ball.setY(ball.getY()-dnorth); return 1;}
-			if(dsouth<dnorth&&dsouth<dwest&&dsouth<deast) {ball.setY(ball.getY()+dsouth); return 1;}
-			if(dwest<dsouth&&dwest<dnorth&&dwest<deast) {ball.setX(ball.getX()-dwest); return 0;}
-			if(deast<dsouth&&deast<dwest&&deast<dnorth) {ball.setX(ball.getX()+deast); return 0;}
-			else return -1;
-			
-		}	
-		else return 2;
-		
-	}
 	public void reset(){
 		setX(422);
 		setY(700);

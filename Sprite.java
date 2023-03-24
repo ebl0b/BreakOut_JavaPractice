@@ -32,16 +32,6 @@ public abstract class Sprite {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		currentDir = System.getProperty("user.dir");
-		audioPath = currentDir + FileSystems.getDefault().getSeparator() + "krock.wav.";
-	}
-	public void audio() {
-		try {
-			Clip krock = AudioSystem.getClip();
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(audioPath));
-			krock.open(inputStream);
-			krock.start();}
-			catch (Exception e) {}
 	}
 	public abstract void update(Keyboard keyboard);
 	public abstract void draw(Graphics2D graphics);
