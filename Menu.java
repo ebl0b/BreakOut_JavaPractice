@@ -29,8 +29,8 @@ public class Menu implements ActionListener
 		quit.addActionListener(this);
 		board.crd1.add(play);
 		board.crd1.add(quit);
-		play.setBounds(432, 351, 576, 108);
-		quit.setBounds(432, 504, 576, 108);
+		play.setBounds(C.PLAY_BOUNDS);
+		quit.setBounds(C.QUIT_BOUNDS);
 		play.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		quit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		play.setOpaque(false);
@@ -47,7 +47,7 @@ public class Menu implements ActionListener
 	}
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource() == play){
-			board.setView(1);
+			board.setView(C.GAME);
 		}
 		if(e.getSource() == quit){
 			System.exit(0);

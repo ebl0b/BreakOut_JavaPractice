@@ -7,6 +7,6 @@ public class ResetterStageComplete{
 		JOptionPane mes = new JOptionPane();
 		int choice = mes.showConfirmDialog(board, "Stage cleared!\nYour score was: " + game.score + "\nContinue?");
 		if(choice == JOptionPane.NO_OPTION) {System.exit(0);}
-		if(choice == JOptionPane.YES_OPTION) {game.reset(0);}
+		if(choice == JOptionPane.YES_OPTION) {game.reset(C.NORMAL_RESET);}
 	}
 }

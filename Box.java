@@ -15,16 +15,16 @@ public abstract class Box extends Sprite
 	private String currentDir;
 	private File audioFile;
 
-	public Box(int x, int y, int width, int height, Boolean isTransparent){
-		super(x, y, width, height);
+	public Box(Rectangle bounds, Boolean isTransparent){
+		super(bounds);
 		this.isTransparent = isTransparent;
 		currentDir = System.getProperty("user.dir");
 		audioPath = currentDir + FileSystems.getDefault().getSeparator() + "krock.wav.";
 		audioFile = new File(audioPath);
-		setP1x(x);
-		setP1y(y);
-		setP2x(x+width);
-		setP2y(y+height);
+		setP1x(bounds.x);
+		setP1y(bounds.y);
+		setP2x(bounds.x+bounds.width);
+		setP2y(bounds.y+bounds.height);
 	}
 
 	public Boolean getIsTransparent() {return isTransparent;}
@@ -43,12 +43,11 @@ public abstract class Box extends Sprite
 			dnorth = Math.abs(ball.getP2y()-getP1y()); dsouth = Math.abs(ball.getP1y()-getP2y());
 			dwest = Math.abs(ball.getP2x()-getP1x()); deast = Math.abs(ball.getP1x()-getP2x());
 	
-			if(dnorth<dsouth&&dnorth<dwest&&dnorth<deast) {if(!getIsTransparent())ball.setY(ball.getY()-dnorth); return 1;}
-			if(dsouth<dnorth&&dsouth<dwest&&dsouth<deast) {if(!getIsTransparent())ball.setY(ball.getY()+dsouth); return 1;}
-			if(dwest<dsouth&&dwest<dnorth&&dwest<deast) {if(!getIsTransparent())ball.setX(ball.getX()-dwest); return 0;}
-			if(deast<dsouth&&deast<dwest&&deast<dnorth) {if(!getIsTransparent())ball.setX(ball.getX()+deast); return 0;}
-			else return -1;
-			
+			if(dnorth<dsouth&&dnorth<dwest&&dnorth<deast) {if(!getIsTransparent())ball.setY(ball.getY()-dnorth); return C.HORIZONTAL_COL;}
+			if(dsouth<dnorth&&dsouth<dwest&&dsouth<deast) {if(!getIsTransparent())ball.setY(ball.getY()+dsouth); return C.HORIZONTAL_COL;}
+			if(dwest<dsouth&&dwest<dnorth&&dwest<deast) {if(!getIsTransparent())ball.setX(ball.getX()-dwest); return C.VERTICAL_COL;}
+			if(deast<dsouth&&deast<dwest&&deast<dnorth) {if(!getIsTransparent())ball.setX(ball.getX()+deast); return C.VERTICAL_COL;}
+			else return C.CORNER_COL;
 		}	
 		else return 2;
 	}

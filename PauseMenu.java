@@ -21,7 +21,7 @@ public class PauseMenu extends JPopupMenu{
 		restart = new JMenuItem("Restart");
 		returnTo = new JMenuItem("Return to menu");
 		quit = new JMenuItem("Quit");
-		setPreferredSize(new Dimension(300, 400));
+		setPreferredSize(C.PAUSE_SIZE);
 
 		add(continu);
 		add(restart);
@@ -43,15 +43,15 @@ public class PauseMenu extends JPopupMenu{
 			@Override
 			public void actionPerformed(ActionEvent e){
 				board.requestFocusInWindow();
-				game.reset(1);
+				game.reset(C.FULL_RESET);
 				state = true;
 			}
 		});
 		returnTo.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				game.reset(1);
-				board.setView(0);
+				game.reset(C.FULL_RESET);
+				board.setView(C.MENU);
 				state = true;
 				
 			}
@@ -71,7 +71,7 @@ public class PauseMenu extends JPopupMenu{
 			tmp = true;
 		}
 		if(tmp == true){
-			this.show(board, 410, 250);
+			this.show(board, C.PAUSE_X, C.PAUSE_Y);
 			while(state==false){
 				try {Thread.sleep(1000 / board.getFPS());} 
 				catch (InterruptedException e) {e.printStackTrace();}

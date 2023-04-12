@@ -27,11 +27,11 @@ public abstract class Sprite {
 	public void setY(int y) { this.y = y; };
 	public void setWidth(int width) { this.width = width; };
 	public void setHeight(int height) { this.height = height; };
-	public Sprite(int x, int y, int width, int height) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
+	public Sprite(Rectangle bounds) {
+		this.x = bounds.x;
+		this.y = bounds.y;
+		this.width = bounds.width;
+		this.height = bounds.height;
 	}
 	public abstract void update(Keyboard keyboard);
 	public abstract void draw(Graphics2D graphics);

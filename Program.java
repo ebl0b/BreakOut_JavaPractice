@@ -8,7 +8,7 @@ public class Program extends JFrame {
 	public Program() {
 		board = new GameBoard();
 		setResizable(false);
-		setSize(new Dimension(1454, 937));
+		setSize(C.SCREEN_SIZE);
 		add(board);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -23,7 +23,6 @@ public class Program extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("start");
 		Program program = new Program();
 	}
 }

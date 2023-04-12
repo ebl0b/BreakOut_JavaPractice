@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class GameBoard extends JComponent {
 	private final int FPS = 80; 
-	private int view = 0;
+	private int view = C.MENU;
 	private Game game;
 	private Menu menu;
 	private Left left;
@@ -37,9 +37,8 @@ public class GameBoard extends JComponent {
 	public void setView(int view){this.view = view;}
 
 	public GameBoard() {
-		darkGray = new Color(40,36,36);
 		keyboard = new Keyboard();
-		setSize(new Dimension(1454, 937));
+		//setSize(new Dimension(1454, 937));
 
 		crd1 = new Crd1();
 		crd2 = new JPanel();
@@ -65,31 +64,32 @@ public class GameBoard extends JComponent {
 		crd2.add(east, BorderLayout.EAST);
 		crd2.add(south, BorderLayout.SOUTH);
 		east.setLayout(new GridBagLayout());
-		gbc.insets = new Insets(0, 45, 0, 0);
+
+		gbc.insets = C.HS_INSETS;
 		gbc.gridx = GridBagConstraints.RELATIVE;
 		gbc.gridy = GridBagConstraints.RELATIVE;
-		gbc.ipadx = 250;
-        gbc.ipady = 290;
-		gbc.weightx = 1;
-        gbc.weighty = 1;
+		gbc.ipadx = C.LIST_WIDTH;
+        gbc.ipady = C.LIST_HEIGHT;
+		gbc.weightx = C.LIST_STD_WEIGHT;
+        gbc.weighty = C.LIST_STD_WEIGHT;
 		gbc.anchor = GridBagConstraints.FIRST_LINE_START;
 		east.add(highScore, gbc);
 
-		gbc2.insets = new Insets(364, -293, 0, 0);
+		gbc2.insets = C.RP_INSETS;
 		gbc2.gridx = GridBagConstraints.RELATIVE;
 		gbc2.gridy = GridBagConstraints.RELATIVE;
-		gbc2.ipadx = 250;
-        gbc2.ipady = 290;
-		gbc2.weightx = 1;
-        gbc2.weighty = 1;
+		gbc2.ipadx = C.LIST_WIDTH;
+        gbc2.ipady = C.LIST_HEIGHT;
+		gbc2.weightx = C.LIST_STD_WEIGHT;
+        gbc2.weighty = C.LIST_STD_WEIGHT;
 		gbc2.anchor = GridBagConstraints.LINE_START;
 		east.add(recentPlays, gbc2);
 
-		north.setPreferredSize(new Dimension(1440, 135));
-		west.setPreferredSize(new Dimension(45, 795));
-		east.setPreferredSize(new Dimension(360, 795));
-		center.setPreferredSize(new Dimension(1035, 795));
-		south.setPreferredSize(new Dimension(1035, 0));
+		north.setPreferredSize(C.NORTH_SIZE);
+		west.setPreferredSize(C.WEST_SIZE);
+		east.setPreferredSize(C.EAST_SIZE);
+		center.setPreferredSize(C.CENTER_SIZE);
+		south.setPreferredSize(C.SOUTH_SIZE);
 		crd1.setLayout(null);
 		
 		game = new Game(this);
@@ -104,7 +104,7 @@ public class GameBoard extends JComponent {
 		protected void paintComponent(Graphics arg0) {
 			super.paintComponent(arg0);
 			Graphics2D graphics = (Graphics2D)arg0;
-			graphics.setColor(Color.BLUE);
+			graphics.setColor(C.DARK_GRAY);
 			graphics.fillRect(0, 0, getWidth(), getHeight());
 			menu.draw(graphics);
 		}
@@ -115,7 +115,7 @@ public class GameBoard extends JComponent {
 		protected void paintComponent(Graphics arg0) {
 			super.paintComponent(arg0);
 			Graphics2D graphics = (Graphics2D)arg0;
-			graphics.setColor(darkGray);
+			graphics.setColor(C.DARK_GRAY);
 			graphics.fillRect(0, 0, getWidth(), getHeight());
 			top.draw(graphics);
 		}
@@ -125,7 +125,7 @@ public class GameBoard extends JComponent {
 		protected void paintComponent(Graphics arg0) {
 			super.paintComponent(arg0);
 			Graphics2D graphics = (Graphics2D)arg0;
-			graphics.setColor(darkGray);
+			graphics.setColor(C.DARK_GRAY);
 			graphics.fillRect(0, 0, getWidth(), getHeight());
 			left.draw(graphics);
 		}
@@ -135,7 +135,7 @@ public class GameBoard extends JComponent {
 		protected void paintComponent(Graphics arg0) {
 			super.paintComponent(arg0);
 			Graphics2D graphics = (Graphics2D)arg0;
-			graphics.setColor(darkGray);
+			graphics.setColor(C.DARK_GRAY);
 			graphics.fillRect(0, 0, getWidth(), getHeight());
 			game.draw(graphics);
 		}
@@ -145,7 +145,7 @@ public class GameBoard extends JComponent {
 		protected void paintComponent(Graphics arg0) {
 			super.paintComponent(arg0);
 			Graphics2D graphics = (Graphics2D)arg0;
-			graphics.setColor(darkGray);
+			graphics.setColor(C.DARK_GRAY);
 			graphics.fillRect(0, 0, getWidth(), getHeight());
 			right.draw(graphics);
 		}
@@ -155,7 +155,7 @@ public class GameBoard extends JComponent {
 		protected void paintComponent(Graphics arg0) {
 			super.paintComponent(arg0);
 			Graphics2D graphics = (Graphics2D)arg0;
-			graphics.setColor(darkGray);
+			graphics.setColor(C.DARK_GRAY);
 			graphics.fillRect(0, 0, getWidth(), getHeight());
 		}
 	}
@@ -171,7 +171,7 @@ public class GameBoard extends JComponent {
 
 	public void start() {
 		while(true){
-			while(view==1) {
+			while(view==C.GAME) {
 				game.update(keyboard);
 				try {Thread.sleep(1000 / FPS);} 
 				catch (InterruptedException e) {e.printStackTrace();}
@@ -181,7 +181,7 @@ public class GameBoard extends JComponent {
 				center.repaint();
 			}
 			crdl.show(this, "Menu");
-			while(view==0){
+			while(view==C.MENU){
 				crd1.repaint();
 			}
 			crdl.show(this, "Game");

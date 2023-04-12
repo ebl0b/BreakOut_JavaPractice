@@ -9,7 +9,7 @@ public class ResetterGameOver extends JOptionPane{
 		//this.setLocationRelativeTo(board.super);
 		if(choice == JOptionPane.NO_OPTION) {System.exit(0);}
 		if(choice == JOptionPane.YES_OPTION) {
-			game.reset(1);
+			game.reset(C.FULL_RESET);
 		}
 	}
 }

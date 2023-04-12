@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
-
 import javax.imageio.ImageIO;
 
 public class Bat extends Box{
@@ -13,9 +12,9 @@ public class Bat extends Box{
 	String imagePath;
 	String currentDir;
 	private int dx;
-	public Bat(int x, int y, int width, int height, int dx) {
-		super(x, y, width, height, false);
-		this.dx = dx;
+	public Bat() {
+		super(C.BAT_BOUNDS, false);
+		dx = C.BAT_DX;
 		currentDir = System.getProperty("user.dir");
 		imagePath = currentDir + FileSystems.getDefault().getSeparator() + "Bat.png";
 		try {image = ImageIO.read(new File(imagePath));} 
@@ -25,10 +24,10 @@ public class Bat extends Box{
 	@Override
 	public void update(Keyboard k) {
 
-		if(k.isKeyDown(Key.Z)&&getX()>10) {setX(getX()-dx);}
-		if(k.isKeyDown(Key.X)&&getX()+getWidth()<1025) {setX(getX()+dx);}
-		if(k.isKeyDown(Key.Z)&&getX()>10&&k.isKeyDown(Key.Space)) {setX(getX()-2*dx);}
-		if(k.isKeyDown(Key.X)&&getX()+getWidth()<1025&&k.isKeyDown(Key.Space)) {setX(getX()+2*dx);}
+		if(k.isKeyDown(Key.Z)&&getX()>C.WEST_EDGE) {setX(getX()-dx);}
+		if(k.isKeyDown(Key.X)&&getX()+getWidth()<C.EAST_EDGE) {setX(getX()+dx);}
+		if(k.isKeyDown(Key.Z)&&getX()>C.WEST_EDGE&&k.isKeyDown(Key.Space)) {setX(getX()-2*dx);}
+		if(k.isKeyDown(Key.X)&&getX()+getWidth()<C.EAST_EDGE&&k.isKeyDown(Key.Space)) {setX(getX()+2*dx);}
 		
 		setP1x(getX());
 		setP1y(getY());
@@ -42,7 +41,7 @@ public class Bat extends Box{
 	}
 	
 	public void reset(){
-		setX(422);
-		setY(700);
+		setX(C.BAT_START_X);
+		setY(C.BAT_START_Y);
 	}
 }

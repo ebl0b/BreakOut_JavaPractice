@@ -1,102 +1,90 @@
-import java.awt.Color;
+import java.awt.*;
 import java.awt.Graphics2D;
 import java.util.*;
 
-public class Row {
-	Random rand;
-	ArrayList<Box> row;
-	private int len;
-	private int rnum;
+public class Row 
+{
+	private ArrayList<Box> row;
+	private int columns;
 	private int tmpx, tmpy;
-	int x = 20, y;
-	Grid grid;
-	public Row(int len, int y, Grid grid) {
+	private int x, y;
+	private Grid grid;
+
+	public Row(int y, Grid grid) 
+	{
 		row = new ArrayList<Box>();
-		this.len = len;
+		row.ensureCapacity(10);
+		columns = C.COLUMNS;
 		this.y = y;
 		this.grid = grid;
-		for(int i = 0; i<len; i++) {
-			rand = new Random();
-			rnum = rand.nextInt(10);
-			if(rnum==0||rnum==1||rnum==2) {row.add(new RedBox(x, y, 90, 45));}
-			if(rnum==3||rnum==4||rnum==5) {row.add(new BlueBox(x, y, 90, 45));}
-			if(rnum==6||rnum==7) {row.add(new GreenBox(x, y, 90, 45));}
-			if(rnum==8||rnum==9) {row.add(new PurpleBox(x, y, 90, 45));}
-			x+=100;
+		reset();
+	}
+
+	public void draw(Graphics2D g) 
+	{
+		for(int i = 0; i<columns; i++) {
+			if(row.get(i).getIsTransparent()==false) {row.get(i).draw(g);}
 		}
 	}
-	public void draw(Graphics2D g) {
-		for(int i = 0; i<len; i++) {
-			if(row.get(i).getIsTransparent()==false) {
-				row.get(i).draw(g);
-				//g.fillRect(row.get(i).getX(), row.get(i).getY(), row.get(i).getWidth(), row.get(i).getHeight());
-			}
+
+	private void boxConversion(int i)
+	{
+		row.get(i).audio();
+		tmpx = row.get(i).getX(); tmpy = row.get(i).getY();
+		if(row.get(i) instanceof GreenBox){
+			row.set(i, new BlueBox(tmpx, tmpy, C.BOX_SIZE)); 
+			grid.setScore(grid.getScore()+1);
+		}
+		else if(row.get(i) instanceof BlueBox){
+			row.set(i, new RedBox(tmpx, tmpy, C.BOX_SIZE));
+			grid.setScore(grid.getScore()+1);
+		}
+		else if(row.get(i) instanceof RedBox){
+			row.get(i).setIsTransparent(true);
+			grid.setScore(grid.getScore()+1);
+		}
+		else if(row.get(i) instanceof PurpleBox){
+			row.get(i).setIsTransparent(true);
+			grid.setScore(grid.getScore()+2);
 		}
 	}
-	public int checkCol(Ball ball) {
-		for(int i = 0; i<len; i++) {
+	public int checkCol(Ball ball) 
+	{
+		for(int i = 0; i<columns; i++) {
 			int rowc = row.get(i).checkCol(ball);
-			if(rowc==1&&row.get(i).getIsTransparent()==false) {
-				row.get(i).audio();
-				tmpx = row.get(i).getX(); tmpy = row.get(i).getY();
-				if(row.get(i) instanceof GreenBox){
-					row.set(i, new BlueBox(tmpx, tmpy, 90, 45)); 
-					grid.setScore(grid.getScore()+1);
-				}
-				else if(row.get(i) instanceof BlueBox){
-					row.set(i, new RedBox(tmpx, tmpy, 90, 45));
-					grid.setScore(grid.getScore()+1);
-				}
-				else if(row.get(i) instanceof RedBox){
-					row.get(i).setIsTransparent(true);
-					grid.setScore(grid.getScore()+1);
-				}
-				else if(row.get(i) instanceof PurpleBox){
-					row.get(i).setIsTransparent(true);
-					grid.setScore(grid.getScore()+2);
-				}
-				return 1;
+			if(rowc==C.HORIZONTAL_COL&&row.get(i).getIsTransparent()==false) {
+				boxConversion(i);
+				return C.HORIZONTAL_COL;
 			}
-			else if(rowc==0&&row.get(i).getIsTransparent()==false) {
-				row.get(i).audio();
-				tmpx = row.get(i).getX(); tmpy = row.get(i).getY();
-				if(row.get(i) instanceof GreenBox){
-					row.set(i, new BlueBox(tmpx, tmpy, 90, 45)); 
-					grid.setScore(grid.getScore()+1);
-				}
-				else if(row.get(i) instanceof BlueBox){
-					row.set(i, new RedBox(tmpx, tmpy, 90, 45));
-					grid.setScore(grid.getScore()+1);
-				}
-				else if(row.get(i) instanceof RedBox){
-					row.get(i).setIsTransparent(true); 
-					grid.setScore(grid.getScore()+1);
-				}
-				else if(row.get(i) instanceof PurpleBox){
-					row.get(i).setIsTransparent(true);
-					grid.setScore(grid.getScore()+2);
-				}
-				return 0;
+			else if(rowc==C.VERTICAL_COL&&row.get(i).getIsTransparent()==false) {
+				boxConversion(i);
+				return C.VERTICAL_COL;
+			}
+			else if(rowc==C.CORNER_COL&&row.get(i).getIsTransparent()==false){
+				boxConversion(i);
+				return C.CORNER_COL;
 			}
 		}
 		return 2;
 	}
 	public void reset() {
-		x = 20;
-		for(int i = 0; i<len; i++) {
-			Random rand = new Random();
-			int tmp = rand.nextInt(10);
-			if(tmp==0||tmp==1||tmp==2) {row.set(i, new RedBox(x, y, 90, 45));}
-			if(tmp==3||tmp==4||tmp==5) {row.set(i, new BlueBox(x, y, 90, 45));}
-			if(tmp==6||tmp==7) {row.set(i, new GreenBox(x, y, 90, 45));}
-			if(tmp==8||tmp==9) {row.set(i, new PurpleBox(x, y, 90, 45));}
-			x+=100;
-			
+		x = C.GRID_X_DISPLACEMENT;
+		Random rand = new Random();
+		for(int i = 0; i<columns; i++) {
+			//row.clear();
+			rand = new Random();
+			int rnum = rand.nextInt(10); //genererar slumpat tal mellan 0 och 9
+			System.out.println("reset " + i + " " + rnum);
+			if(rnum==0||rnum==1||rnum==2) {row.add(i, new RedBox(x, y, C.BOX_SIZE));}
+			if(rnum==3||rnum==4||rnum==5) {row.add(i, new BlueBox(x, y, C.BOX_SIZE));}
+			if(rnum==6||rnum==7) {row.add(i, new GreenBox(x, y, C.BOX_SIZE));}
+			if(rnum==8||rnum==9) {row.add(i, new PurpleBox(x, y, C.BOX_SIZE));}
+			x+=C.BOX_X_DISPLACEMENT;
 		}
 	}
 
-	public Boolean checkState() {
-		for(int i = 0; i<len; i++) {
+	public Boolean checkRowCleared() {
+		for(int i = 0; i<columns; i++) {
 			if(row.get(i).getIsTransparent()==false) {return false;}
 		}
 		return true;

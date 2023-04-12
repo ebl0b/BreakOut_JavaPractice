@@ -1,4 +1,4 @@
-import java.awt.Color;
+import java.awt.*;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -12,8 +12,15 @@ public class BlueBox extends Box{
 	BufferedImage image = null;
 	String imagePath;
 	String currentDir;
-	public BlueBox(int x, int y, int width, int height) {
-		super(x, y, width, height, false);
+	public BlueBox(Rectangle bounds) {
+		super(bounds, false);
+		currentDir = System.getProperty("user.dir");
+		imagePath = currentDir + FileSystems.getDefault().getSeparator() + "BlueBox.png";
+		try {image = ImageIO.read(new File(imagePath));} 
+		catch (IOException e) {e.printStackTrace();}
+	}
+	public BlueBox(int x, int y, Dimension size) {
+		super(new Rectangle(new Point(x, y), size), false);
 		currentDir = System.getProperty("user.dir");
 		imagePath = currentDir + FileSystems.getDefault().getSeparator() + "BlueBox.png";
 		try {image = ImageIO.read(new File(imagePath));} 

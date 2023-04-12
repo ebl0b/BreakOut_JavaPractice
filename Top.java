@@ -29,9 +29,9 @@ public class Top {
 	public void draw(Graphics2D g) {
 		g.drawImage(image, 0, 0, null);
 		g.setColor(Color.white);
-		g.setFont(new Font("Bank Gothic Light BT", Font.PLAIN, 35));
-		g.drawString("Lives: " + game.getLives(), 55, 75);
-		g.drawString("Stage: " + game.getStage(), 415, 75);
-		g.drawString("Score: " + game.getScore(), 820, 75);
+		g.setFont(new Font("Bank Gothic Light BT", Font.PLAIN, C.NORTH_FONT_SIZE));
+		g.drawString("Lives: " + game.getLives(), C.NORTH_TEXT_LIVES_X, C.NORTH_TEXT_Y);
+		g.drawString("Stage: " + game.getStage(), C.NORTH_TEXT_STAGE_X, C.NORTH_TEXT_Y);
+		g.drawString("Score: " + game.getScore(), C.NORTH_TEXT_SCORE_X, C.NORTH_TEXT_Y);
 	}
 }
