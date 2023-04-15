@@ -13,8 +13,10 @@ public class RecentPlaysList extends JScrollPane
 		model = new DefaultListModel<Integer>();
 		list = new JList<Integer>(model);
 		setViewportView(list);
-		getViewport().setBackground(C.DARK_GRAY);
+		list.setBackground(C.DARK_GRAY);
 		list.setEnabled(false);
+		list.setCellRenderer(new CustomListCellRenderer());
+		list.setFont(new Font("Bank Gothic Light BT", Font.BOLD, C.LIST_FONT_SIZE));
 	}
 
 	private int getCurrentModelSize(){return model.getSize();}

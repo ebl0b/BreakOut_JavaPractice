@@ -13,15 +13,17 @@ public class HighScoreList extends JScrollPane
 		model = new DefaultListModel<String>();
 		list = new JList<String>(model);
 		setViewportView(list);
-		getViewport().setBackground(C.DARK_GRAY);
+		list.setBackground(C.DARK_GRAY);
 		list.setEnabled(false);
+		list.setCellRenderer(new CustomListCellRenderer());
+		list.setFont(new Font("Bank Gothic Light BT", Font.BOLD, C.LIST_FONT_SIZE));
 	}
 
 	private int getCurrentModelSize(){return model.getSize();}
 
 	public void addHighScore(String name, int score)
 	{
-		String hs = name + " " + score;
+		String hs = name + "    " + score;
 		int cmp = scoreCmp(score);
 
 		if(cmp > -1){
@@ -36,7 +38,7 @@ public class HighScoreList extends JScrollPane
 	private int scoreCmp(int score)
 	{
 		for(int i = 0; i<getCurrentModelSize(); i++){
-			int scoreVal = Integer.parseInt(model.get(i).split("\\s")[1]);
+			int scoreVal = Integer.parseInt(model.get(i).split("\\s\\s\\s\\s")[1]);
 			if(score>scoreVal){return i;}
 		}
 		return -1;
