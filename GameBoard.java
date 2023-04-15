@@ -26,11 +26,11 @@ public class GameBoard extends JComponent {
 
 	private Keyboard keyboard;
 	private Color darkGray;
-	private HighScore highScore;
-	private RecentPlays recentPlays;
+	private HighScoreList highScore;
+	private RecentPlaysList recentPlays;
 	
-	public HighScore getHighScore(){return highScore;}
-	public RecentPlays getRecentPlays(){return recentPlays;}
+	public HighScoreList getHighScore(){return highScore;}
+	public RecentPlaysList getRecentPlays(){return recentPlays;}
 	public int getView(){return view;}
 	public int getFPS(){return FPS;}
 
@@ -55,8 +55,8 @@ public class GameBoard extends JComponent {
 		east = new East();
 		south = new South();
 		center = new Center();
-		highScore = new HighScore();
-		recentPlays = new RecentPlays();
+		highScore = new HighScoreList();
+		recentPlays = new RecentPlaysList();
 		
 		crd2.add(north, BorderLayout.NORTH);
 		crd2.add(west, BorderLayout.WEST);

@@ -60,6 +60,7 @@ public class C{
 	public static final int NORTH_TEXT_STAGE_X = 415; 
 	public static final int NORTH_TEXT_LIVES_X = 55;
 	public static final int NORTH_FONT_SIZE = 35;
+	public static final int MAX_LIST_SIZE = 10;
 
 	public static final Rectangle BAT_BOUNDS = new Rectangle(422, 700, 160, 30);
 	public static final Rectangle BALL_BOUNDS = new Rectangle(497, 600, 30, 30);
